@@ -20,4 +20,17 @@ public class ArraysLab{
         else
             System.out.println("item not found");
     }
+
+    public void linSearchInt(int intArray[], int search){
+
+    }
+    
+    public void binSearchString(String strArray[], String search){
+
+    }
+
+    public void binSearchInt(int intArray[], int search){
+
+    }
+
 }
