@@ -1,4 +1,4 @@
-public class ArrayLab{
+public class ArraysLab{
     public static void main (String[] args){
 
     }
