@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class ArraysLab{
     static Scanner scanner = new Scanner(System.in);
@@ -34,55 +33,95 @@ public class ArraysLab{
         System.out.println("Enter a Client Name: ");
         String nameSearch = scanner.nextLine();
         int stringSearchVal = linSearchString(myClientsArray, nameSearch);
-        
-        // Search for number using linear search
+        if (stringSearchVal != -1)
+            System.out.println("Item found at position " + stringSearchVal);
+        else System.out.println("Item not found");
+
+        // Search for client number using linear search
         System.out.println("Enter a Client Number: ");
         int numSearch = scanner.nextInt();
         int intSearchVal = linSearchInt(myClientNumbers, numSearch);
+        if (intSearchVal != -1)
+            System.out.println("Item found at position " + intSearchVal);
+        else System.out.println("Item not found");
         
         // print results
         if ((intSearchVal != -1 && stringSearchVal != -1) && intSearchVal == stringSearchVal)
             System.out.println("results:                 the positions match");
         else 
             System.out.println("results:                 the positions do not match");
-
-        // Print both arrays
-        printParallelArrays(myClientsArray, myClientNumbers);
-
-        // Create new Arrays
+            
+        // Create new Arrays with old values
         String[] newClients1 = myClientsArray;
         int[] newNumbers1 = myClientNumbers;
 
-        // sort both arrays using intrinsic sort
-        // Arrays.sort(newClients1);
-        // Arrays.sort(newNumbers1);
+        // sort Arrays based on client names using bubble sort
+        System.out.println("\nArray sorted by client names using bubble sort:");
+        stringBubbleSort(newClients1,newNumbers1);
+        // print sorted arrays
+        printParallelArrays(newClients1, newNumbers1);
+
+        // search client names array using binary search
+        stringSearchVal = binSearchString(newClients1, "Zheng");
+        System.out.println("\nSearch the clients array for 'Zheng' using binary search:\n" + stringSearchVal);        
+
+        // Sort arrays based on client numbers using bubble sort
+        System.out.println("\nArrays sorted by client numbers using bubble sort:");
+        intBubbleSort(newClients1,newNumbers1);
+        // print sorted arrays
+        printParallelArrays(newClients1, newNumbers1);
 
         // search both arrays using binary search
-        stringSearchVal = binSearchString(newClients1, "Zheng");
-        intSearchVal = binSearchInt(newNumbers1, 203);
+        stringSearchVal = binSearchString(newClients1, "Baker");
+        System.out.println("\nSearch client array for 'Baker' using binary search:\n" + stringSearchVal);
+        intSearchVal = binSearchInt(newNumbers1, 188);
+        System.out.println("\nSearch number array for 188 using binary search:\n" + intSearchVal);
 
-        System.out.println("-------------" + stringSearchVal + " : " + intSearchVal + "----------");
-    
+        // sort arrays by client names using insertion sort
+        System.out.println("\nArray sorted by client names using insertion sort:");
+        stringInsertionSort(newClients1,newNumbers1);
+        printParallelArrays(newClients1, newNumbers1);
+
+        // sort arrays by client numbers using insertion sort
+        System.out.println("\nArray sorted by client numbers using insertion sort:");
+        intInsertionSort(newClients1,newNumbers1);
+        printParallelArrays(newClients1, newNumbers1);
+
+        // test remaining functions
+        System.out.println("\nChange client name who has the value 189 to 'Adil'.\n"
+                             + "Also, remove client who has name 'Bond' and create a new client\n"
+                             + "with the name 'Zach' and number 123. Finally," 
+                             + "change number for the client with name 'Butler' to 102.\n");
+        changeClient(189, "Adil");
+        removeClient("Bond");
+        addClient("Zach", 123);
+        changeValue("Butler", 102);
+
+        printParallelArrays(newClients1, newNumbers1);
     }
     
-    // find first number in array and change name of responding client
-    public static void changeClient(int value, String newClient){
-        int index = linSearchInt(myClientNumbers, value);
-        myClientsArray[index] = newClient;
+    // Given a value, find the first instance of that value,
+    // and change their client name to the new client name
+    public static void changeClient(int value, String newClientname){
+        int index = linSearchInt(myClientNumbers, value)-1;
+        myClientsArray[index] = newClientname;
     }
 
+    // remove a client from both arrays
     public static void removeClient(String client){
-        int index = linSearchString(myClientsArray, client);
+        int index = linSearchString(myClientsArray, client)-1;
         myClientsArray[index] = null;
         myClientNumbers[index] = 0;
     }
 
+    // change value of clients number
     public static void changeValue(String client, int newVal){
-        int index = linSearchString(myClientsArray, client);
+        int index = linSearchString(myClientsArray, client)-1;
         myClientNumbers[index] = newVal;
     }
 
-    public static void addValue(String client, int number){
+    // add new client with given name and number
+    public static void addClient(String client, int number){
         for(int i = 0; i < myClientsArray.length;i++){
             if(myClientsArray[i] == null){
                 myClientsArray[i] = client;
@@ -91,6 +130,7 @@ public class ArraysLab{
         }
     }
 
+    // print both given parallel arrays 
     public static void printParallelArrays(String[] strArray,int[] intArray){
         for(int i = 0; i<strArray.length;i++){
             if (strArray[i] != null)
@@ -98,6 +138,7 @@ public class ArraysLab{
         }
     }
 
+    // search string array for a value using linear search
     public static int linSearchString(String strArray[], String search)
     {
         int i = 0;
@@ -111,13 +152,11 @@ public class ArraysLab{
             }
         }
         if (flag == 1) {
-            System.out.println("item found at position " + (i + 1));
-            return i;
+            return i+1;
         }
-        System.out.println("item not found");
         return 0;    
     }
-
+    // search int array for a value using linear search
     public static int linSearchInt(int intArray[], int search){
         int i = 0;
         int flag = 0;
@@ -130,47 +169,44 @@ public class ArraysLab{
             }
         }
         if (flag == 1){
-            System.out.println("item found at position " + (i + 1));
-            return i;
+            return i+1;
         }
-        System.out.println("item not found");
         return 0;
     }
     
     // precondition: strArray is sorted
+    // Search string array using binary search
     public static int binSearchString(String strArray[], String search){  
         int left = 0;
         int right = strArray.length-1;
-        int middle,middleVal;
         while(left<=right){
-            middle = left + (right-left)/2;
-            middleVal = search.compareTo(strArray[middle]);
-            
-            if(middleVal == 0) return middle;
+            int middle = (left + right)/2;
+            int val = search.compareTo(strArray[middle]);
+            if(val == 0) return middle+1;
         
-            if(middleVal > 0) left = middle+1;
+            if(val > 0) left = middle+1;
             else right = middle-1;
         }
         return -1;
     }
  
     // precondition: intArray is sorted
+    // Search int array using binary search
     public static int binSearchInt(int intArray[], int search){
-        int left = intArray[0];
+        int left = 0;
         int right = intArray.length-1;
-        int middle,middleVal;
         while(left<=right){
-            middle = left + (right-left)/2;
-            middleVal = intArray[middle];
-            if(middleVal == search) return middle;
+            int middle = (left + right-1) / 2;
+            if(intArray[middle] == search) return middle+1;
         
-            if(middleVal < search) left = middle+1;
+            if(intArray[middle] < search) left = middle+1;
             else right = middle-1;
         }
 
         return -1;
     }
 
+    // sort both parallel arrays by string(client name) using bubble sort 
     public static void stringBubbleSort(String[] strArray, int[] intArray){
         boolean swapped = false;
         String tempStr;
@@ -193,18 +229,19 @@ public class ArraysLab{
         }
     }
 
+    // sort both parallel arrays by int(client number) using bubble sort 
     public static void intBubbleSort(String[] strArray, int[] intArray){
         boolean swapped;
         int tempInt;
         String tempStr;
-        for(int i = 0 ; i < intArray.length;i++){
+        for(int i = 0 ; i < intArray.length-1;i++){
             swapped = false;
-            for(int j = 0; j < intArray.length-i-1;i++){
+            for(int j = 0; j < intArray.length-i-1;j++){
                 if(intArray[j] > intArray[j+1]){
                     tempInt = intArray[j+1];
                     tempStr = strArray[j+1];
-                    intArray[j+1] = intArray[i];
-                    strArray[j+1] = strArray[i];
+                    intArray[j+1] = intArray[j];
+                    strArray[j+1] = strArray[j];
                     intArray[j] = tempInt;
                     strArray[j] = tempStr;
                     swapped = true;
@@ -214,20 +251,43 @@ public class ArraysLab{
         }        
     }  
 
-    public static void stringInsertionSort(String[] strArray){
-
+    // sort both parallel arrays by string(client name) using insertion sort 
+    public static void stringInsertionSort(String[] strArray, int[] intArray){
+        String tempStr;
+        int tempInt;
+        for (int i = 1; i < strArray.length; i++) {
+            tempStr = strArray[i];
+            tempInt = intArray[i];
+            int j = i - 1;
+            while (j >= 0) {
+                if (tempStr.compareTo(strArray[j]) > 0) {
+                    break;
+                }
+                strArray[j+1] = strArray[j];
+                intArray[j+1] = intArray[j];
+                j--;
+            }
+            strArray[j+1] = tempStr;
+            intArray[j+1] = tempInt;
+            // System.out.println(Arrays.toString(strArray));
+        }
     }
 
-    public static void intInsertionSort(int[] intArray){
-        int value;
+    // sort both parallel arrays by int(client number) using insertion sort 
+    public static void intInsertionSort(String[] strArray, int[] intArray){
+        int tempInt;
+        String tempStr;
         for (int i = 1; i< intArray.length;i++){
-            value = intArray[i];
+            tempInt = intArray[i];
+            tempStr = strArray[i];
             int j = i-1;
-            while(j>=0 && intArray[j] > value){
-                intArray[j+1] =intArray[j];
+            while(j>=0 && intArray[j] > tempInt){
+                intArray[j+1] = intArray[j];
+                strArray[j+1] = strArray[j];
                 j--;                
             }
-            intArray[j+1] = value;
+            intArray[j+1] = tempInt;
+            strArray[j+1] = tempStr;
         }
     }
 
