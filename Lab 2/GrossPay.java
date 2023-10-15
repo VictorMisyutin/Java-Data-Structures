@@ -47,7 +47,8 @@ public class GrossPay
         System.out.println("Please enter the number of items produced by the employee:");
         numItems = scanner.nextInt();
         tempNumItems = numItems;
-
+        scanner.close();
+        
         // CAN I USE A SWITCH STATEMENT HERE
         
         if (tempNumItems <= 112 && !flatRate){

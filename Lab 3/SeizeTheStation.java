@@ -24,7 +24,7 @@ public class SeizeTheStation
         List<String> keyList = new ArrayList<>(animalMap.keySet());
         
         // max distance player can travel in one turn
-        int maxDistance = 20;
+        // int maxDistance = 20;
         // declare a Scanner class object and Random class object
         Scanner scan = new Scanner(System.in);
         Random randomGen = new Random();
@@ -97,6 +97,7 @@ public class SeizeTheStation
                 System.out.println("\nCongratulaions you reached the objective.");
             }
         }
+        scan.close();
         System.out.println("You are " + (goal>distanceTraveled ?  goal-distanceTraveled : 0) + " feet away from the objective.");
         System.out.println("You finished with " + (health>0 ?  health : 0) + " health.");
         System.out.println("You completed " + (loopCount) + " loops");
