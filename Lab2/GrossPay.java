@@ -1,3 +1,4 @@
+package Lab2;
 import java.text.NumberFormat; 
 import java.text.SimpleDateFormat; 
 import java.util.Date;

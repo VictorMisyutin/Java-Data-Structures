@@ -1,3 +1,4 @@
+package Lab3;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
