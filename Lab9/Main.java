@@ -17,7 +17,7 @@ public class Main {
         flights.add(new Flight(new Data("0009", 1220), 3));
         flights.add(new Flight(new Data("0010", 757), 3));
         // Printing all elements
-        System.out.println("The queue elements:");
+        System.out.println("The queue elements listed from longest to shortest distance by priority sequence:");
         Data[] dataRecs = new Data[10];
         int i = 0;
         while (!flights.isEmpty()) {
@@ -28,10 +28,6 @@ public class Main {
         for (Data recs : dataRecs)
             System.out.println(recs.getName() + " " + recs.getMiles() + " " + recs.getPriority());
 
-        System.out.println("----------------Flights Printed By Longest To Shortest Distance----------------");
-        System.out.println("----------------Flights Printed By Longest To Shortest Distance----------------");
-        System.out.println("----------------Flights Printed By Longest To Shortest Distance----------------");
-        System.out.println("----------------Flights Printed By Longest To Shortest Distance----------------");
 
     }
 }
@@ -41,9 +37,9 @@ class SortQueue implements Comparator<Flight> {
     public int compare(Flight f1, Flight f2)
     {
         int res = f1.getPriority() - f2.getPriority();
-        // if (res == 0){
-        //    res = f1.getData().getMiles() - f2.getData().getMiles(); 
-        // }
+        if (res == 0){
+           res = f2.getData().getMiles() - f1.getData().getMiles(); 
+        }
         return res;
     }
 }
