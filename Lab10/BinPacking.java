@@ -21,6 +21,7 @@ class BinPacking {
         number = sc.nextInt();
         System.out.println("enter the bin capacity? ");
         upperBound = sc.nextInt();
+        sc.close();
         while (count <= number) {
             pos = getRandomValue(upperBound);
             vect.add(pos);
