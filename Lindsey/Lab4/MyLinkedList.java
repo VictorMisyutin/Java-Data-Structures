@@ -24,16 +24,6 @@ public class MyLinkedList<T> extends AbstractList<T> {
    }
    
 
-
-
-
-
-
-
-
-
-
-
 	private class DoublyLinkedNode {
 		/* Your DoublyLinkedNode instance variables and constructor 
 		   go here.*/
@@ -47,9 +37,6 @@ public class MyLinkedList<T> extends AbstractList<T> {
 
         }
         
-	
-    
-    
     
         }
 

@@ -48,8 +48,6 @@ public class Professors implements Iterable<String> {
         for (String prof : profs) {
             System.out.println(prof);
         }
-        
-        
 
     }
     
