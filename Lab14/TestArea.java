@@ -35,7 +35,7 @@ public class TestArea
                 rectangleCount++;
             }
             else{
-                System.out.printf("%-14s %-10s %-10s %-10s %-10s %-10s\n", shape.getName(), shape.getArea(), shape.getPerimeter(), " ", " ", shape.getSide());
+                System.out.printf("%-14s %-10s %-10s %-10s %-10s %-10s\n", shape.getName(), shape.getArea(), shape.getPerimeter(), shape.getLength(), shape.getLength(), shape.getSide());
             }
         }
 
