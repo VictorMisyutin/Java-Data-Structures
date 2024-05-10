@@ -24,7 +24,7 @@ public class TestTimer
         label2 = new JLabel();
         text1 = new JTextField(10);
         text2 = new JTextField(10);
-        button1 = new JButton("Start"); 
+        button1 = new JButton("flip"); 
         text1.setEnabled(false);
         text2.setEnabled(false);
         frame.add(label1);
@@ -38,11 +38,6 @@ public class TestTimer
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         button1.addActionListener(e -> {
-            timer = new Timer(1250, new ActionListener()
-            {
-             @Override
-             public void actionPerformed(ActionEvent e)
-             {
                  count++;
                  if (count % 2 == 0)
                  {
@@ -61,13 +56,6 @@ public class TestTimer
                      text2.setBackground(Color.RED);
                      label1.setText("Flip");
                  }
-                 if(count == 10)
-                 {
-                     timer.stop();
-                 }
-                 }
-             });
-             timer.start();         
         });
    
     }
